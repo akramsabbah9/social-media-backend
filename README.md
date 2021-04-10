@@ -1,1 +1,1 @@
-# social-media-backend
+# Social Networking API Backend
