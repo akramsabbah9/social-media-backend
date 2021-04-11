@@ -2,14 +2,16 @@
 const router = require("express").Router();
 const userController = require("../../controllers/user-controller");
 
-// TODO: CRUD routes for /
+// CRUD routes for /
 router.route("/")
     .get(userController.getAllUsers)
     .post(userController.createUser);
 
-// TODO: CRUD routes for /:id
+// CRUD routes for /:id
 router.route("/:id")
-    .get(userController.getUserById);
+    .get(userController.getOneUser)
+    .put(userController.updateUser)
+    .delete(userController.deleteUser);
 
 // TODO: CRUD routes for /:userId/friends/:friendId
 
