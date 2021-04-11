@@ -1,5 +1,6 @@
 /* models/Thought.js: define Thought schema */
 const { Schema, model } = require("mongoose");
+const ReactionSchema = require("./Reaction");
 
 // TODO: complete thought schema
 const ThoughtSchema = new Schema(
@@ -23,7 +24,7 @@ const ThoughtSchema = new Schema(
             type: String,
             required: "This thought must have an associated username."
         },
-        reactions: [] //TODO: reference ReactionSchema
+        reactions: [ReactionSchema]
     },
     {
         toJSON: {
