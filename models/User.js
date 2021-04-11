@@ -5,13 +5,13 @@ const UserSchema = new Schema(
     {
         username: {
             type: String,
-            unique: true,
+            unique: "This username is already taken.",
             required: "A username must be provided.",
             trim: true
         },
         email: {
             type: String,
-            unique: true,
+            unique: "This email is already in use.",
             required: "An email must be provided.",
             match: [
                 /([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})/,

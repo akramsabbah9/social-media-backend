@@ -4,7 +4,8 @@ const userController = require("../../controllers/user-controller");
 
 // TODO: CRUD routes for /
 router.route("/")
-    .get(userController.getAllUsers);
+    .get(userController.getAllUsers)
+    .post(userController.createUser);
 
 // TODO: CRUD routes for /:id
 router.route("/:id")

@@ -6,10 +6,9 @@ const userController = {
     // get all users
     getAllUsers(req, res) {
         User.find({})
-            .populate({
-                path: "friends",
-                select: "-__v"
-            })
+            .populate(
+                // { path: "thoughts", select: "-__v" }
+            )
             .select("-__v")
             .then(userData => res.json(userData))
             .catch(err => {
@@ -21,10 +20,9 @@ const userController = {
     // get one user
     getUserById({ params }, res) {
         Pizza.findOne({ _id: params.id })
-            .populate({
-                path: "friends",
-                select: "-__v"
-            })
+            .populate(
+                // { path: "thoughts", select: "-__v" }
+            )
             .select("-__v")
             .then(userData => {
                 if (!userData) {
@@ -36,7 +34,17 @@ const userController = {
                 console.log(err);
                 res.status(500).json(err);
             });
-    }
+    },
+
+    // create new user
+    createUser({ body }, res) {
+        User.create(body)
+        .then(userData => res.json(userData))
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+    },
 };
 
 module.exports = userController;
