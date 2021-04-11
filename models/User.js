@@ -18,7 +18,12 @@ const UserSchema = new Schema(
                 "This is not a valid email address."
             ]
         },
-        //thoughts, // TODO: [{type: Schema.Types.ObjectId, ref: "Thought"}]
+        thoughts: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Thought"
+            }
+        ],
         friends: [
             {
                 type: Schema.Types.ObjectId,
