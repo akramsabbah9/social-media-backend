@@ -12,7 +12,12 @@ const ThoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            get: value => new Intl.DateTimeFormat("en-US", { dateStyle: "full" }).format(value)
+            get: value => new Intl
+                .DateTimeFormat(
+                    "en-US-u-hc-h12",
+                    { dateStyle: "full", timeStyle: "medium" }
+                )
+                .format(value)
         },
         username: {
             type: String,
