@@ -1,5 +1,4 @@
 /* controllers/user-controller.js: logic for user api routes */
-
 const { User } = require("../models");
 
 const userController = {
