@@ -13,7 +13,7 @@ const UserSchema = new Schema(
             type: String,
             unique: true,
             required: "An email must be provided.",
-            matches: [
+            match: [
                 /([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})/,
                 "This is not a valid email address."
             ]
@@ -29,7 +29,8 @@ const UserSchema = new Schema(
     {
         toJSON: {
             virtuals: true
-        }
+        },
+        id: false
     }
 );
 
