@@ -18,7 +18,7 @@ const UserSchema = new Schema(
                 "This is not a valid email address."
             ]
         },
-        thoughts, // TODO: [{type: Schema.Types.ObjectId, ref: "Thought"}]
+        //thoughts, // TODO: [{type: Schema.Types.ObjectId, ref: "Thought"}]
         friends: [
             {
                 type: Schema.Types.ObjectId,
@@ -33,7 +33,7 @@ const UserSchema = new Schema(
     }
 );
 
-User.virtual("friendCount").get(function() {
+UserSchema.virtual("friendCount").get(function() {
     return this.friends.length;
 });
 
