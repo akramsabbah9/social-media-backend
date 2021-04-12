@@ -16,10 +16,10 @@ const userController = {
     // get one user by id
     getOneUser({ params }, res) {
         User.findOne({ _id: params.id })
-            .populate(
+            .populate([
                 { path: "thoughts", select: "-__v" },
                 { path: "friends", select: "-__v -friends", options: { lean: true } }
-            )
+            ])
             .select("-__v")
             .then(userData => {
                 if (!userData) {

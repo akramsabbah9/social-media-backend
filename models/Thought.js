@@ -2,7 +2,6 @@
 const { Schema, model } = require("mongoose");
 const ReactionSchema = require("./Reaction");
 
-// TODO: complete thought schema
 const ThoughtSchema = new Schema(
     {
         thoughtText: {

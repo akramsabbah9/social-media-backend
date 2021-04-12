@@ -1,13 +1,10 @@
 /* controllers/thought-controller.js: logic for thought api routes */
-const { Thought } = require("../models");
+const { Thought, User } = require("../models");
 
 const thoughtController = {
     // get all thoughts
     getAllThoughts(req, res) {
         Thought.find({})
-            .populate(
-                // { path: "reactions", select: "-__v" }
-            )
             .select("-__v")
             .then(thoughtData => res.json(thoughtData))
             .catch(err => {
@@ -19,9 +16,6 @@ const thoughtController = {
     // get one thought by id
     getOneThought({ params }, res) {
         Thought.findOne({ _id: params.id })
-            .populate(
-                // { path: "reactions", select: "-__v" }
-            )
             .select("-__v")
             .then(thoughtData => {
                 if (!thoughtData) {
@@ -35,10 +29,22 @@ const thoughtController = {
             });
     },
 
-    // create new thought
+    // create new thought and add to associated User's thought array
     createThought({ body }, res) {
         Thought.create(body)
-            .then(thoughtData => res.json(thoughtData))
+            .then(thoughtData => {
+                return User.findOneAndUpdate(
+                    { username: body.username },
+                    { $push: { thoughts: thoughtData._id } },
+                    { new: true, runValidators: true }
+                )
+            })
+            .then(userData => {
+                if (!userData) {
+                    return res.status(404).json({ message: "No user found with this id." });
+                }
+                res.json(userData);
+            })
             .catch(err => {
                 console.log(err);
                 res.status(500).json(err);
@@ -49,7 +55,7 @@ const thoughtController = {
     updateThought({ params, body }, res) {
         Thought.findOneAndUpdate(
             { _id: params.id },
-            body,
+            { thoughtText: body.thoughtText }, // cannot change username!
             { new: true, runValidators: true }
         )
             .then(thoughtData => {
