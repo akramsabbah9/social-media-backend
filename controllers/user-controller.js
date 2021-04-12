@@ -1,14 +1,10 @@
 /* controllers/user-controller.js: logic for user api routes */
-const { User } = require("../models");
+const { User, Thought } = require("../models");
 
 const userController = {
     // get all users
     getAllUsers(req, res) {
         User.find({})
-            .populate(
-                // { path: "thoughts", select: "-__v" },
-                { path: "friends", select: "-__v -friends", options: { lean: true } }
-            )
             .select("-__v")
             .then(userData => res.json(userData))
             .catch(err => {
@@ -21,7 +17,7 @@ const userController = {
     getOneUser({ params }, res) {
         User.findOne({ _id: params.id })
             .populate(
-                // { path: "thoughts", select: "-__v" },
+                { path: "thoughts", select: "-__v" },
                 { path: "friends", select: "-__v -friends", options: { lean: true } }
             )
             .select("-__v")
